@@ -31,20 +31,6 @@ function readInt()
 }
 
 /**
- * 標準入力から1行の文字列を読み取る
- * 
- * @return string 読み取った文字列（前後の空白は削除済み）
- * 
- * 処理内容：
- * 1. 標準入力から1行分のデータを読み取る
- * 2. 前後の空白文字を削除して返す
- */
-function readString()
-{
-    return trim(fgets(STDIN));
-}
-
-/**
  * 標準入力からスペース区切りの整数値を読み取る
  * 
  * @return int[] 整数値の配列
