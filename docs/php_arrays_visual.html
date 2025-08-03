@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP 配列の違い</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+            font-size: 1.5em;
+        }
+        
+        .array-visual {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+        
+        .array-item {
+            background: #e9ecef;
+            color: #333;
+            padding: 15px 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            min-width: 120px;
+            text-align: center;
+        }
+        
+        .key {
+            background: #f8f9fa;
+            color: #666;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+        
+        .value {
+            font-size: 1.1em;
+        }
+        
+        .two-d-visual {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .row-container {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        
+        .row-title {
+            background: #6c757d;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 3px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .row-items {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .row-item {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 3px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            line-height: 1.4;
+            margin: 15px 0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        
+        .php-tag {
+            color: #81c784;
+        }
+        
+        .string {
+            color: #ffb74d;
+        }
+        
+        .number {
+            color: #64b5f6;
+        }
+        
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .comparison-item {
+            background: #f8f9fa;
+            border-radius: 5px;
+            padding: 20px;
+            border-left: 3px solid #6c757d;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 3px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            .array-visual {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PHP 連想配列 vs 2次元配列</h1>
+        
+        <div class="section">
+            <h2>連想配列（Associative Array）</h2>
+            <p>キー（文字列や数値）と値のペアで構成される配列です。</p>
+            
+            <h3>初期化方法</h3>
+            <div class="code-block">
+<span class="php-tag">&lt;?php</span>
+// 配列リテラル（推奨）
+$person = [
+    <span class="string">"name"</span> => <span class="string">"田中太郎"</span>,
+    <span class="string">"age"</span> => <span class="number">25</span>,
+    <span class="string">"city"</span> => <span class="string">"東京"</span>
+];
+
+// array()関数
+$person = array(
+    <span class="string">"name"</span> => <span class="string">"田中太郎"</span>,
+    <span class="string">"age"</span> => <span class="number">25</span>,
+    <span class="string">"city"</span> => <span class="string">"東京"</span>
+);
+
+// 空の連想配列
+$empty_person = [];
+
+// 1つずつ代入
+$person[<span class="string">"name"</span>] = <span class="string">"田中太郎"</span>;
+$person[<span class="string">"age"</span>] = <span class="number">25</span>;
+$person[<span class="string">"city"</span>] = <span class="string">"東京"</span>;
+            </div>
+            
+            <div class="array-visual">
+                <div class="array-item">
+                    <div class="key">name</div>
+                    <div class="value">田中太郎</div>
+                </div>
+                <div class="array-item">
+                    <div class="key">age</div>
+                    <div class="value">25</div>
+                </div>
+                <div class="array-item">
+                    <div class="key">city</div>
+                    <div class="value">東京</div>
+                </div>
+            </div>
+            
+            <div class="highlight">
+                <strong>特徴：</strong>1つの「もの」について、複数の属性（プロパティ）を管理するのに適している
+            </div>
+            
+            <h3>アクセス方法</h3>
+            <div class="code-block">
+<span class="php-tag">&lt;?php</span>
+// キーを指定してアクセス
+echo $person[<span class="string">"name"</span>];    // 田中太郎
+echo $person[<span class="string">"age"</span>];     // 25
+echo $person[<span class="string">"city"</span>];    // 東京
+
+// 存在しないキーは警告が出る
+echo $person[<span class="string">"phone"</span>];   // Warning: Undefined array key
+
+// 安全にアクセスする方法
+echo $person[<span class="string">"phone"</span>] ?? <span class="string">"未設定"</span>;  // 未設定
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>2次元配列（Two-dimensional Array）</h2>
+            <p>配列の中に配列が入っている構造。表やリストのデータに適している。</p>
+            
+            <h3>初期化方法</h3>
+            <div class="code-block">
+<span class="php-tag">&lt;?php</span>
+// 配列リテラル（推奨）
+$students = [
+    [<span class="string">"田中太郎"</span>, <span class="number">25</span>, <span class="string">"東京"</span>],
+    [<span class="string">"佐藤花子"</span>, <span class="number">23</span>, <span class="string">"大阪"</span>],
+    [<span class="string">"鈴木一郎"</span>, <span class="number">27</span>, <span class="string">"福岡"</span>]
+];
+
+// array()関数
+$students = array(
+    array(<span class="string">"田中太郎"</span>, <span class="number">25</span>, <span class="string">"東京"</span>),
+    array(<span class="string">"佐藤花子"</span>, <span class="number">23</span>, <span class="string">"大阪"</span>),
+    array(<span class="string">"鈴木一郎"</span>, <span class="number">27</span>, <span class="string">"福岡"</span>)
+);
+
+// 空の2次元配列
+$empty_students = [];
+
+// 1つずつ代入
+$students[0] = [<span class="string">"田中太郎"</span>, <span class="number">25</span>, <span class="string">"東京"</span>];
+$students[1] = [<span class="string">"佐藤花子"</span>, <span class="number">23</span>, <span class="string">"大阪"</span>];
+
+// さらに詳細に1つずつ代入
+$students[0][0] = <span class="string">"田中太郎"</span>;
+$students[0][1] = <span class="number">25</span>;
+$students[0][2] = <span class="string">"東京"</span>;
+            </div>
+            
+            <div class="two-d-visual">
+                <div class="row-container">
+                    <div class="row-title">students[0]</div>
+                    <div class="row-items">
+                        <div class="row-item">
+                            <span>[0]</span>
+                            <span>田中太郎</span>
+                        </div>
+                        <div class="row-item">
+                            <span>[1]</span>
+                            <span>25</span>
+                        </div>
+                        <div class="row-item">
+                            <span>[2]</span>
+                            <span>東京</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row-container">
+                    <div class="row-title">students[1]</div>
+                    <div class="row-items">
+                        <div class="row-item">
+                            <span>[0]</span>
+                            <span>佐藤花子</span>
+                        </div>
+                        <div class="row-item">
+                            <span>[1]</span>
+                            <span>23</span>
+                        </div>
+                        <div class="row-item">
+                            <span>[2]</span>
+                            <span>大阪</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row-container">
+                    <div class="row-title">students[2]</div>
+                    <div class="row-items">
+                        <div class="row-item">
+                            <span>[0]</span>
+                            <span>鈴木一郎</span>
+                        </div>
+                        <div class="row-item">
+                            <span>[1]</span>
+                            <span>27</span>
+                        </div>
+                        <div class="row-item">
+                            <span>[2]</span>
+                            <span>福岡</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="highlight">
+                <strong>特徴：</strong>複数の「もの」について、同じ形式のデータを管理するのに適している
+            </div>
+            
+            <h3>アクセス方法</h3>
+            <div class="code-block">
+<span class="php-tag">&lt;?php</span>
+// インデックスを指定してアクセス
+echo $students[0][0];  // 田中太郎 (1番目の学生の1番目の要素)
+echo $students[0][1];  // 25      (1番目の学生の2番目の要素)
+echo $students[1][0];  // 佐藤花子 (2番目の学生の1番目の要素)
+
+// 配列の要素数を取得
+echo count($students);     // 3 (学生の人数)
+echo count($students[0]);  // 3 (各学生のデータ項目数)
+
+// 存在しないインデックスは警告が出る
+echo $students[5][0];      // Warning: Undefined array key
+echo $students[0][5];      // Warning: Undefined array key
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>連想配列の2次元配列（よく使われる組み合わせ）</h2>
+            <p>2次元配列の各要素が連想配列になっているパターン。最も実用的！</p>
+            
+            <div class="code-block">
+<span class="php-tag">&lt;?php</span>
+$students = [
+    [
+        <span class="string">"name"</span> => <span class="string">"田中太郎"</span>,
+        <span class="string">"age"</span> => <span class="number">25</span>,
+        <span class="string">"city"</span> => <span class="string">"東京"</span>
+    ],
+    [
+        <span class="string">"name"</span> => <span class="string">"佐藤花子"</span>,
+        <span class="string">"age"</span> => <span class="number">23</span>,
+        <span class="string">"city"</span> => <span class="string">"大阪"</span>
+    ]
+];
+            </div>
+            
+            <div class="comparison">
+                <div class="comparison-item">
+                    <h3>アクセス方法</h3>
+                    <div class="code-block">
+// 連想配列
+echo $person[<span class="string">"name"</span>];
+// → 田中太郎
+
+// 2次元配列
+echo $students[0][0];
+// → 田中太郎
+
+// 連想配列の2次元配列
+echo $students[0][<span class="string">"name"</span>];
+// → 田中太郎
+                    </div>
+                </div>
+                
+                <div class="comparison-item">
+                    <h3>使い分けのコツ</h3>
+                    <p><strong>連想配列：</strong><br>
+                    1つのユーザー情報、設定値など</p>
+                    
+                    <p><strong>2次元配列：</strong><br>
+                    CSVデータ、テーブルデータなど</p>
+                    
+                    <p><strong>連想配列の2次元配列：</strong><br>
+                    データベースの結果、API レスポンスなど</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>実践例：ループ処理の違い</h2>
+            
+            <div class="code-block">
+<span class="php-tag">&lt;?php</span>
+// 連想配列のループ
+foreach ($person as $key => $value) {
+    echo $key . ": " . $value . "\n";
+}
+
+// 2次元配列のループ
+foreach ($students as $index => $student) {
+    echo "学生" . ($index + 1) . ": ";
+    foreach ($student as $info) {
+        echo $info . " ";
+    }
+    echo "\n";
+}
+
+// 連想配列の2次元配列のループ
+foreach ($students as $student) {
+    echo $student[<span class="string">"name"</span>] . "さん（" . $student[<span class="string">"age"</span>] . "歳）\n";
+}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
