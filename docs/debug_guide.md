@@ -1,44 +1,9 @@
-# デバッグ方法
-
-## 変数の値を確認
-```php
-echo "変数: " . $variable . "\n";
-var_dump($variable);
-print_r($array);
-```
-
-## 段階的に処理を確認
-```php
-echo "=== ステップ1 ===\n";
-// 処理1
-echo "=== ステップ2 ===\n";
-// 処理2
-```
-
-## 条件分岐の確認
-```php
-if ($condition) {
-    echo "条件が真\n";
-} else {
-    echo "条件が偽\n";
-}
-```
 
 ## 型の確認
 ```php
 echo "型: " . gettype($variable) . "\n";
 var_dump($variable);
 ```
-
-## よくある問題
-- 文字列 vs 整数
-- 配列のインデックス存在確認
-- 比較演算子の使い方
-
-## デバッグのコツ
-- 一気に解決しようとしない
-- 小さな単位で確認
-- 期待値を事前に計算
 
 ## PHPスクリプト実行方法
 
@@ -54,32 +19,32 @@ php script.php
 # Ctrl+D (Unix) または Ctrl+Z (Windows) で終了
 ```
 
-### 入力ファイル作成例
+### 入力ファイルがある場合
+
+**ターミナルで実行**
+- Unix系
 ```bash
-# input.txt を作成
-echo "9 4 5 2 3" > input.txt
-echo "1 0" >> input.txt
-echo "1 2" >> input.txt
-# ... 他の入力行
+php sample.php < input.txt
 ```
 
-### サンプル実行例
-**1. エディタでinput.txt作成**
+- PowerShell
 ```
-それぞれの問題の入力内容
+Get-Content input01.txt | php ./sample.php
 ```
 
-**2. ターミナルで実行**
-Unix系
+- Git Bash
+**問題**
+Git BashでPHPに標準入力を渡すと `stdin is not a tty` エラーが発生する
+
+**解決方法**
 ```bash
-php B109.php < input.txt
-```
-PowerShell
-```
-Get-Content input01.txt | php ./php/B095.php
+cmd //c "php ./sample.php < input01.txt"
 ```
 
-**3. 結果**
-```
-答えが表示
-``` 
+
+| 環境 | 説明 |
+|------|------|
+| cmd | Windowsの標準コマンドプロンプト |
+| Git Bash | Unix/Linux風のコマンドライン環境（MinTTY） |
+
+`cmd //c "コマンド"` でWindowsのコマンドプロンプトを一時的に使用してコマンドを実行する
