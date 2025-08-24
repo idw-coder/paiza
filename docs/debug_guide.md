@@ -48,3 +48,9 @@ cmd //c "php ./sample.php < input01.txt"
 | Git Bash | Unix/Linux風のコマンドライン環境（MinTTY） |
 
 `cmd //c "コマンド"` でWindowsのコマンドプロンプトを一時的に使用してコマンドを実行する
+
+## JavaScript実行
+
+```
+C:\paiza> Get-content .\input01.txt | node .\js\C162.js
+```
