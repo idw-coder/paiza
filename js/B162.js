@@ -34,29 +34,56 @@ reader.on("line", (line) => {
  * 標準入力のストリームが閉じられた後の処理
  */
 reader.on("close", () => {
+  const R = parseInt(lines[0].split(" ")[0]);
+  const C = parseInt(lines[0].split(" ")[1]);
 
-  const r = parseFloat(lines[0]);
-
-  let v = 0;
-  for (let i = 0; i <= r; i++) {
-    // rが整数の場合
-    if (r % 1 === 0) {
-      if (i === r) {
-        v += r;
-        // console.log(i, r, v, "整数");
-      }
-      // rが少数の場合
-    } else if (i === Math.floor(r)) {
-        v += Math.ceil(r);
-        // console.log(i, Math.ceil(r), v);
-    } else {
-    const height = Math.ceil(Math.sqrt(r * r - ((i + 1) * (i + 1))));
-    v += height;
-      // console.log(i, height, v);
+  // グリッドを作成、2次元配列で作成
+  const grid = [];
+  for (let i = 0; i < R; i++) {
+    const row = [];
+    for (let j = 0; j < C; j++) {
+      row.push(lines[i + 1].split("")[j]);
     }
+    grid.push(row);
   }
 
-  console.log(v * 4);
+  for (let i = 0; i < R; i++) {
+    // console.log(grid[i].join(" "));
+  }
 
+  function checkXsize(grid, i, j) {
+    let xsize = 0;
+    if (grid[i][j] !== ".") {
+      return xsize;
+    }
 
+    for (let k = 1; k < Math.min(R/2 + 1, C/2 + 1); k++) {
+      // console.log("k", k);
+      // グリッドの範囲内でXが連続している場合はカウント
+      if (i-k < 0 || j-k < 0 || i+k >= R || j+k >= C) {
+        break;
+      }
+      if (
+        (grid[i-k][j-k] === ".") &&
+        (grid[i-k][j+k] === ".") &&
+        (grid[i+k][j-k] === ".") &&
+        (grid[i+k][j+k] === ".")
+      ) {
+        xsize++;
+        // console.log(i, j, k, xsize);
+      } else {
+        break;
+      }
+    }
+    return xsize;
+  }
+
+  let maxXsize = 0; 
+  for (let i = 0; i < R; i++) {
+    for (let j = 0; j < C; j++) {
+      // console.log(i, j);
+      maxXsize = Math.max(maxXsize, checkXsize(grid, i, j));
+    }
+  }
+  console.log(maxXsize);
 });
