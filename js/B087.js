@@ -30,6 +30,23 @@ reader.on('line', (line) => {
   lines.push(line);
 });
 
+
+function vhNum(x, y, array, K, H, W) {
+  const dirX = Math.min(K - 1, W - x - 1);
+  const dirY = Math.min(K - 1, H - y - 1);
+  let maxNumX = array[y][x];
+  let maxNumY = array[y][x];
+  for (let i = 1; i <= dirX; i++) {
+    maxNumX = maxNumX * 10 + array[y][x + i];
+  }
+  for (let j = 1; j <= dirY; j++) {
+    maxNumY = maxNumY * 10 + array[y + j][x];
+  }
+  return Math.max(maxNumX, maxNumY);
+}
+// テスト用のエクスポート
+module.exports = { vhNum };
+
 /**
  * 標準入力のストリームが閉じられた後の処理
  */
@@ -45,24 +62,10 @@ reader.on('close', () => {
   }
   // console.log(inputArray);
 
-  function vhNum(x, y, array, K) {
-    const dirX = Math.min(K - 1, W - x - 1);
-    const dirY = Math.min(K - 1, H - y - 1);
-    let maxNumX = array[y][x];
-    let maxNumY = array[y][x];
-    for (let i = 1; i <= dirX; i++) {
-      maxNumX = maxNumX * 10 + array[y][x + i];
-    }
-    for (let j = 1; j <= dirY; j++) {
-      maxNumY = maxNumY * 10 + array[y + j][x];
-    }
-    return Math.max(maxNumX, maxNumY);
-  }
-
   let maxNum = 0;
   for (let y = 0; y < H; y++) {
     for (let x = 0; x < W; x++) {
-      const num = vhNum(x, y, inputArray, K);
+      const num = vhNum(x, y, inputArray, K, H, W);
       if (num > maxNum) {
         maxNum = num;
       }
