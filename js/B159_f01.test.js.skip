@@ -1,0 +1,14 @@
+const { calculateSatisfaction } = require('./B159.js');
+
+test('calculateSatisfaction function basic test', () => {
+  const testArray = [
+    [10, 2, 1],
+    [40, 5, 2],
+    [70, 8, 3],
+    [50, 6, 1]
+  ];
+
+  const result = calculateSatisfaction(testArray, 0, 1, 2, 100);
+  
+  expect(result).toBe(-1);
+});
