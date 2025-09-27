@@ -1,0 +1,40 @@
+const fs = require("fs");
+const path = require("path");
+const {calcMatch} = require("./B079.js");
+
+// input01.txtを読み込んでテストデータに変換する関数
+function loadTestData(filename) {
+  const filePath = path.join(__dirname, "..", filename);
+  const data = fs.readFileSync(filePath, "utf8").trim().split("\n");
+  const [s, t] = data[0].split(" ");
+  return {s, t};
+}
+
+test("function input01 test", () => {
+  const {s, t} = loadTestData("input01.txt");
+
+  const result = calcMatch(s, t);
+
+  expect(result).toEqual(83);
+});
+
+test("calcMatch function edge cases", () => {
+  const edgeS = "a".repeat(3); // "aaa"
+  const edgeT = "a".repeat(1); // "a"
+
+  const result = calcMatch(edgeS, edgeT);
+
+  expect(result).toBe(8);
+});
+
+// test("countAdventurers function empty grid", () => {
+//   const testGrid = [
+//     ["#", "#", "#"],
+//     ["#", "#", "#"],
+//     ["#", "#", "#"],
+//   ];
+
+//   const result = countAdventurers(2, 2, testGrid, 3, 3);
+
+//   expect(result.maxNum).toBe(0);
+// });
