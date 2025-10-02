@@ -1,0 +1,26 @@
+const { calc } = require('./B017.js');
+const fs = require("fs");
+const path = require("path");
+
+// input01.txtを読み込んでテストデータに変換する関数
+function loadTestData(filename) {
+  const filePath = path.join(__dirname, "..", filename);
+  const data = fs.readFileSync(filePath, "utf8").trim().split("\n");
+  const baseArray = data[0].split("");
+  return {baseArray};
+}
+
+test('calc function basic test', () => {
+  const testArray = [
+    "*", "B", "*", "C"
+  ];
+
+  const result = calc(testArray);
+  expect(result).toEqual("ThreeCard");
+});
+
+test('calc function with input01.txt', () => {
+  const {baseArray} = loadTestData("input01.txt");
+  const result = calc(baseArray);
+  expect(result).toEqual("NoPair");
+});
