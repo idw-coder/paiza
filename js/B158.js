@@ -11,18 +11,17 @@ function calc(inputArray) {
       pyramidArray[i][j] = 0;
     }
   }
-  console.log(pyramidArray);
   for (let i = 0; i < N; i++) {
     for (let j = 0; j < N; j++) {
       // 左上
-      if (i <= N / 2 && j <= N / 2) {
+      if (i < N / 2 && j < N / 2) {
         if (i <= j) {
           pyramidArray[i][j] = i + 1;
         } else {
           pyramidArray[i][j] = j + 1;
         }
         // 右上
-      } else if (i <= N / 2 && j > N / 2) {
+      } else if (i < N / 2 && j > N / 2) {
         if (i <= N - j - 1) {
           pyramidArray[i][j] = i + 1;
         } else {
@@ -38,7 +37,7 @@ function calc(inputArray) {
         }
       }
       // 左下
-      else if (i > N / 2 && j <= N / 2) {
+      else if (i > N / 2 && j < N / 2) {
         if (N - i <= j) {
           pyramidArray[i][j] = N - i;
         } else {
@@ -47,7 +46,15 @@ function calc(inputArray) {
       }
     }
   }
-  return pyramidArray;
+
+  let resultArray = [];
+  for (let i = 0; i < N; i++) {
+    resultArray.push([]);
+    for (let j = 0; j < N; j++) {
+      resultArray[i][j] = inputArray[i][j] - pyramidArray[i][j];
+    }
+  }
+  return resultArray;
 }
 
 module.exports = {calc};
@@ -73,6 +80,9 @@ if (require.main === module) {
       inputArray.push(lines[i]);
     }
 
-    console.log(calc(inputArray));
+    const result = calc(inputArray);
+    for (let i = 0; i < N; i++) {
+      console.log(result[i].join(' '));
+    }
   });
 }
