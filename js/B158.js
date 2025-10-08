@@ -54,7 +54,13 @@ function calc(inputArray) {
       resultArray[i][j] = inputArray[i][j] - pyramidArray[i][j];
     }
   }
-  return resultArray;
+  let sum = 0;
+  for (let i = 0; i < N; i++) {
+    for (let j = 0; j < N; j++) {
+      sum += resultArray[i][j];
+    }
+  }
+  return sum;
 }
 
 module.exports = {calc};
@@ -81,8 +87,6 @@ if (require.main === module) {
     }
 
     const result = calc(inputArray);
-    for (let i = 0; i < N; i++) {
-      console.log(result[i].join(' '));
-    }
+    console.log(result);
   });
 }

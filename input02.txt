@@ -1,4 +1,5 @@
-3
-abc 197 1
-def 187 1
-ghi 177 1
+4
+watanabe
+abe
+saitou
+paiza
