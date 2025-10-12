@@ -2,7 +2,7 @@ function calc(n, m, array1, array2) {
   // array1を2次元配列に変換
   let array12D = [];
   for (let i = 0; i < n; i++) {
-    array12D.push(array1[i].split("").map(Number));
+    array12D.push([Number(array1[i])]);
   }
   // console.log(array12D);
 
@@ -15,46 +15,17 @@ function calc(n, m, array1, array2) {
       // console.log("array2[i]", i, array2[i]);
       // console.log("収まった", array12D[currentIndex % array12D.length][0]);
     } else {
-      // console.log("else", i, array2[i]);
-      array12D[currentIndex % array12D.length].push(
-        parseInt(array12D[currentIndex % array12D.length][0])
-      );
-      // console.log("i", i);
-      // console.log("array12D", array12D);
-      currentIndex++;
-      while (
-        array12D[currentIndex % array12D.length][0] <
-        array2[i] - array12D[(currentIndex - 1) % array12D.length][0]
-      ) {
-        array12D[currentIndex % array12D.length].push(
-          parseInt(
-            array2[i] - array12D[(currentIndex - 1) % array12D.length][0]
-          )
-        );
-        //もともとの値と、引き算した値を出力
-        // console.log(
-        //   "もともとの値",
-        //   array12D[currentIndex % array12D.length][0]
-        // );
-        // console.log(
-        //   "引き算した値",
-        //   array12D[(currentIndex - 1) % array12D.length][0]
-        // );
-        currentIndex++;
-      }
-      array12D[currentIndex % array12D.length].push(parseInt(
-        array2[i] - array12D[(currentIndex - 1) % array12D.length][0]
-      ));
-      // console.log("array2[i]", i, array2[i]);
-      // console.log("array12D[(currentIndex - 1) % array12D.length][0]", array12D[(currentIndex - 1) % array12D.length][0]);
-      // console.log("引き算した値", array2[i] - array12D[(currentIndex - 1) % array12D.length][0]);
-      // console.log("収まった", array12D[currentIndex % array12D.length][0]);
-      // console.log("array12D", array12D);
-      currentIndex++;
-    }
+  let remainingPeople = array2[i];
+  
+  while (remainingPeople > 0) {
+    let canBoard = Math.min(remainingPeople, array12D[currentIndex % array12D.length][0]);
+    array12D[currentIndex % array12D.length].push(canBoard);
+    remainingPeople -= canBoard;
+    currentIndex++;
+  }
+}
   }
 
-  console.log("最終的なarray12D:", array12D);
   for (let i = 0; i < array12D.length; i++) {
     console.log(array12D[i].slice(1).reduce((prev, next) => prev + next, 0));
   }

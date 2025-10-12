@@ -1,5 +1,7 @@
-4
-watanabe
-abe
-saitou
-paiza
+4 2
+ACEG
+HBDF
+EGAC
+DFHB
+ABA
+BAB
