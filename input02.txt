@@ -1,10 +1,2 @@
-8 6
-1 24
-ihcuon
-sihcuo
-umomom
-mosono
-omumom
-momomo
-omomom
-momomo
+5
+2 5 30 6 2

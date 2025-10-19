@@ -1,5 +1,2 @@
-3 5
-6 10
-paiza
-aizap
-pazia
+4
+1 2 3 4
