@@ -1,4 +1,3 @@
-3 5 4
-g b g y y
-g r b y g
-g r r b g
+5 2 2
+1
+2
