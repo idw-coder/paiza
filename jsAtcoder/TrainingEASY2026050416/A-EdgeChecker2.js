@@ -1,5 +1,5 @@
 function Main(input) {
-  [a, b] = input.trim('\n').split(' ').map(Number);
+  ;[a, b] = input.trim('\n').split(' ').map(Number)
   const nextGrid = [
     [2, 3],
     [4, 5, 1],
@@ -16,8 +16,8 @@ function Main(input) {
     [6],
     [7],
     [7],
-  ];
-  console.log(nextGrid[a - 1].includes(b) ? 'Yes' : 'No');
+  ]
+  console.log(nextGrid[a - 1].includes(b) ? 'Yes' : 'No')
 }
 
-Main(require('fs').readFileSync('/dev/stdin', 'utf8'));
+Main(require('fs').readFileSync('/dev/stdin', 'utf8'))

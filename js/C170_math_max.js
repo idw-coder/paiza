@@ -12,23 +12,23 @@
  *
  * Ctrl + C で終了
  */
-process.stdin.resume();
+process.stdin.resume()
 
 // 標準入力のエンコーディングをUTF-8に設定します。
-process.stdin.setEncoding('utf8');
+process.stdin.setEncoding('utf8')
 
 /**
  * 標準入力のストリームを作成します。
  * 各行のデータをlines配列に格納します。
  */
-var lines = []; // varとは、変数を宣言するためのキーワードです。constとは、定数を宣言するためのキーワードです。
+var lines = [] // varとは、変数を宣言するためのキーワードです。constとは、定数を宣言するためのキーワードです。
 var reader = require('readline').createInterface({
   input: process.stdin,
   output: process.stdout,
-});
+})
 reader.on('line', (line) => {
-  lines.push(line);
-});
+  lines.push(line)
+})
 
 /**
  * 標準入力のストリームが閉じられた後の処理
@@ -40,18 +40,18 @@ reader.on('close', () => {
    * parseInt()は、文字列を整数に変換する関数です。
    * 第2引数に10を指定すると、10進数として変換します。
    */
-  const shoppingNum = parseInt(lines[0].split(' ')[0], 10);
-  const goalPoint = parseInt(lines[0].split(' ')[1], 10);
+  const shoppingNum = parseInt(lines[0].split(' ')[0], 10)
+  const goalPoint = parseInt(lines[0].split(' ')[1], 10)
 
-  let totalPoint = 0;
+  let totalPoint = 0
 
   for (let i = 0; i < shoppingNum; i++) {
     /**
      * Math.floor()は、小数点以下を切り捨てる関数です。
      */
-    const point = Math.floor(parseInt(lines[1].split(' ')[i], 10) / 100);
-    totalPoint += point;
+    const point = Math.floor(parseInt(lines[1].split(' ')[i], 10) / 100)
+    totalPoint += point
   }
 
-  console.log(Math.max(goalPoint - totalPoint, 0) * 100);
-});
+  console.log(Math.max(goalPoint - totalPoint, 0) * 100)
+})

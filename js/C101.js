@@ -12,23 +12,23 @@
  *
  * Ctrl + C で終了
  */
-process.stdin.resume();
+process.stdin.resume()
 
 // 標準入力のエンコーディングをUTF-8に設定します。
-process.stdin.setEncoding('utf8');
+process.stdin.setEncoding('utf8')
 
 /**
  * 標準入力のストリームを作成します。
  * 各行のデータをlines配列に格納します。
  */
-var lines = []; // varとは、変数を宣言するためのキーワードです。constとは、定数を宣言するためのキーワードです。
+var lines = [] // varとは、変数を宣言するためのキーワードです。constとは、定数を宣言するためのキーワードです。
 var reader = require('readline').createInterface({
   input: process.stdin,
   output: process.stdout,
-});
+})
 reader.on('line', (line) => {
-  lines.push(line);
-});
+  lines.push(line)
+})
 
 /**
  * 標準入力のストリームが閉じられた後の処理
@@ -40,14 +40,14 @@ reader.on('close', () => {
    * parseInt()は、文字列を整数に変換する関数です。
    * 第2引数に10を指定すると、10進数として変換します。
    */
-  const luckyDay = parseInt(lines[0].split(' ')[0], 10);
+  const luckyDay = parseInt(lines[0].split(' ')[0], 10)
 
-  const luckyDayArray = [];
+  const luckyDayArray = []
   for (let i = 0; i < 365; i++) {
     if (i.toString().includes(luckyDay.toString())) {
-      luckyDayArray.push(i);
+      luckyDayArray.push(i)
     }
   }
 
-  console.log(luckyDayArray.length);
-});
+  console.log(luckyDayArray.length)
+})

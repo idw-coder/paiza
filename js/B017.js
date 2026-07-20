@@ -1,97 +1,97 @@
 function calc(array) {
-  console.log(array);
-  let result;
+  console.log(array)
+  let result
   // FourCard * 1~4
   if (
-    (array[0] === "*" && array[1] === "*" && array[2] === "*") ||
-    (array[1] === "*" && array[2] === "*" && array[3] === "*") ||
-    (array[0] === "*" && array[2] === "*" && array[3] === "*") ||
-    (array[0] === "*" && array[1] === "*" && array[3] === "*") ||
-    (array[0] === "*" && array[1] === "*" && array[2] === array[3]) ||
-    (array[1] === "*" && array[2] === "*" && array[0] === array[3]) ||
-    (array[2] === "*" && array[3] === "*" && array[0] === array[1]) ||
-    (array[0] === "*" && array[1] === array[2] && array[2] === array[3]) ||
-    (array[3] === "*" && array[0] === array[1] && array[1] === array[2]) ||
-    (array[1] === "*" && array[0] === array[2] && array[2] === array[3]) ||
-    (array[2] === "*" && array[0] === array[1] && array[1] === array[3]) ||
+    (array[0] === '*' && array[1] === '*' && array[2] === '*') ||
+    (array[1] === '*' && array[2] === '*' && array[3] === '*') ||
+    (array[0] === '*' && array[2] === '*' && array[3] === '*') ||
+    (array[0] === '*' && array[1] === '*' && array[3] === '*') ||
+    (array[0] === '*' && array[1] === '*' && array[2] === array[3]) ||
+    (array[1] === '*' && array[2] === '*' && array[0] === array[3]) ||
+    (array[2] === '*' && array[3] === '*' && array[0] === array[1]) ||
+    (array[0] === '*' && array[1] === array[2] && array[2] === array[3]) ||
+    (array[3] === '*' && array[0] === array[1] && array[1] === array[2]) ||
+    (array[1] === '*' && array[0] === array[2] && array[2] === array[3]) ||
+    (array[2] === '*' && array[0] === array[1] && array[1] === array[3]) ||
     (array[0] === array[1] && array[1] === array[2] && array[2] === array[3])
   ) {
-    result = "FourCard";
+    result = 'FourCard'
 
-  // ThreeCard * 0 ~ 2
+    // ThreeCard * 0 ~ 2
   } else if (
-    (array[0] === "*" && array[1] === "*") ||
-    (array[1] === "*" && array[2] === "*") ||
-    (array[2] === "*" && array[3] === "*") ||
-    (array[0] === "*" && array[2] === "*") ||
-    (array[0] === "*" && array[3] === "*") ||
-    (array[1] === "*" && array[3] === "*") ||
-    (array[0] === "*" && array[1] === array[2]) ||
-    (array[0] === "*" && array[1] === array[3]) ||
-    (array[0] === "*" && array[2] === array[3]) ||
-    (array[1] === "*" && array[0] === array[2]) ||
-    (array[1] === "*" && array[0] === array[3]) ||
-    (array[1] === "*" && array[2] === array[3]) ||
-    (array[2] === "*" && array[0] === array[1]) ||
-    (array[2] === "*" && array[0] === array[3]) ||
-    (array[2] === "*" && array[1] === array[3]) ||
-    (array[3] === "*" && array[0] === array[1]) ||
-    (array[3] === "*" && array[0] === array[2]) ||
-    (array[3] === "*" && array[1] === array[2]) ||
+    (array[0] === '*' && array[1] === '*') ||
+    (array[1] === '*' && array[2] === '*') ||
+    (array[2] === '*' && array[3] === '*') ||
+    (array[0] === '*' && array[2] === '*') ||
+    (array[0] === '*' && array[3] === '*') ||
+    (array[1] === '*' && array[3] === '*') ||
+    (array[0] === '*' && array[1] === array[2]) ||
+    (array[0] === '*' && array[1] === array[3]) ||
+    (array[0] === '*' && array[2] === array[3]) ||
+    (array[1] === '*' && array[0] === array[2]) ||
+    (array[1] === '*' && array[0] === array[3]) ||
+    (array[1] === '*' && array[2] === array[3]) ||
+    (array[2] === '*' && array[0] === array[1]) ||
+    (array[2] === '*' && array[0] === array[3]) ||
+    (array[2] === '*' && array[1] === array[3]) ||
+    (array[3] === '*' && array[0] === array[1]) ||
+    (array[3] === '*' && array[0] === array[2]) ||
+    (array[3] === '*' && array[1] === array[2]) ||
     (array[0] === array[1] && array[1] === array[2]) ||
     (array[1] === array[2] && array[2] === array[3]) ||
     (array[0] === array[1] && array[1] === array[3]) ||
     (array[0] === array[2] && array[2] === array[3])
   ) {
-    result = "ThreeCard";
+    result = 'ThreeCard'
 
-  // TwoPair * 0
+    // TwoPair * 0
   } else if (
     (array[0] === array[1] && array[2] === array[3]) ||
     (array[1] === array[2] && array[3] === array[0]) ||
     (array[0] === array[2] && array[1] === array[3])
   ) {
-    result = "TwoPair";
+    result = 'TwoPair'
 
-  // OnePair * 1
+    // OnePair * 1
   } else if (
-    (array[0] === "*") ||
-    (array[1] === "*") ||
-    (array[2] === "*") ||
-    (array[3] === "*") ||
-    (array[0] === array[1]) ||
-    (array[1] === array[2]) ||
-    (array[2] === array[3]) ||
-    (array[0] === array[2]) ||
-    (array[0] === array[3]) ||
-    (array[1] === array[3])
+    array[0] === '*' ||
+    array[1] === '*' ||
+    array[2] === '*' ||
+    array[3] === '*' ||
+    array[0] === array[1] ||
+    array[1] === array[2] ||
+    array[2] === array[3] ||
+    array[0] === array[2] ||
+    array[0] === array[3] ||
+    array[1] === array[3]
   ) {
-    result = "OnePair";
+    result = 'OnePair'
   } else {
-    result = "NoPair";
+    result = 'NoPair'
   }
-  return result;
+  return result
 }
 
-module.exports = {calc};
+module.exports = { calc }
 
 // テスト時は標準入力処理をスキップ
 if (require.main === module) {
-  process.stdin.resume();
-  process.stdin.setEncoding("utf8");
+  process.stdin.resume()
+  process.stdin.setEncoding('utf8')
 
-  var lines = [];
-  var reader = require("readline").createInterface({
+  var lines = []
+  var reader = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout,
-  });
-  reader.on("line", (line) => {
-    lines.push(line);
-  });
+  })
+  reader.on('line', (line) => {
+    lines.push(line)
+  })
 
-  reader.on("close", () => {
-    const inputArray = lines[0].split("");
-    const result = calc(inputArray);
-    console.log(result);
-  });
+  reader.on('close', () => {
+    const inputArray = lines[0].split('')
+    const result = calc(inputArray)
+    console.log(result)
+  })
 }

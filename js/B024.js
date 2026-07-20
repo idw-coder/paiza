@@ -12,51 +12,48 @@
  *
  * Ctrl + C で終了
  */
-process.stdin.resume();
+process.stdin.resume()
 
 // 標準入力のエンコーディングをUTF-8に設定します。
-process.stdin.setEncoding("utf8");
+process.stdin.setEncoding('utf8')
 
 /**
  * 標準入力のストリームを作成します。
  * 各行のデータをlines配列に格納します。
  */
-var lines = []; // varとは、変数を宣言するためのキーワードです。constとは、定数を宣言するためのキーワードです。
-var reader = require("readline").createInterface({
+var lines = [] // varとは、変数を宣言するためのキーワードです。constとは、定数を宣言するためのキーワードです。
+var reader = require('readline').createInterface({
   input: process.stdin,
   output: process.stdout,
-});
-reader.on("line", (line) => {
-  lines.push(line);
-});
+})
+reader.on('line', (line) => {
+  lines.push(line)
+})
 
 /**
  * 標準入力のストリームが閉じられた後の処理
  */
-reader.on("close", () => {
+reader.on('close', () => {
+  const r = parseFloat(lines[0])
 
-  const r = parseFloat(lines[0]);
-
-  let v = 0;
+  let v = 0
   for (let i = 0; i <= r; i++) {
     // rが整数の場合
     if (r % 1 === 0) {
       if (i === r) {
-        v += r;
+        v += r
         // console.log(i, r, v, "整数");
       }
       // rが少数の場合
     } else if (i === Math.floor(r)) {
-        v += Math.ceil(r);
-        // console.log(i, Math.ceil(r), v);
+      v += Math.ceil(r)
+      // console.log(i, Math.ceil(r), v);
     } else {
-    const height = Math.ceil(Math.sqrt(r * r - ((i + 1) * (i + 1))));
-    v += height;
+      const height = Math.ceil(Math.sqrt(r * r - (i + 1) * (i + 1)))
+      v += height
       // console.log(i, height, v);
     }
   }
 
-  console.log(v * 4);
-
-
-});
+  console.log(v * 4)
+})
