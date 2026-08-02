@@ -1,9 +1,9 @@
 import js from '@eslint/js'
-import tseslint from 'typescript-eslint'
 import jestPlugin from 'eslint-plugin-jest'
-import unusedImports from 'eslint-plugin-unused-imports'
 import prettierRecommended from 'eslint-plugin-prettier/recommended'
+import unusedImports from 'eslint-plugin-unused-imports'
 import globals from 'globals'
+import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
   {
@@ -16,7 +16,7 @@ export default tseslint.config(
       'no-async-promise-executor': 'off',
       'max-len': 'off',
       'require-await': 'error',
-      'object-shorthand': 'warn',
+      // 'object-shorthand': 'warn',
       'unused-imports/no-unused-imports': 'warn',
     },
   },
