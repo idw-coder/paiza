@@ -1,11 +1,15 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const fs_1 = __importDefault(require("fs"));
+const path_1 = __importDefault(require("path"));
+const readline_1 = __importDefault(require("readline"));
 function calc(C_1, C_3, arr) {
-    const fs = require('fs');
-    const path = require('path');
     let logContent = '';
     // ファイル名を取得
-    const filename = path.basename(__filename);
+    const filename = path_1.default.basename(__filename);
     logContent += '———————— ' + filename + ' ———————\n';
     logContent += C_1 + '\n';
     logContent += C_3 + '\n';
@@ -26,7 +30,7 @@ function calc(C_1, C_3, arr) {
     const jump = (arr) => {
         for (let i = 1; i <= arr.filter((item) => item !== null).length; i++) {
             // iのうさぎの場所
-            let targetIndex = arr.indexOf(i);
+            const targetIndex = arr.indexOf(i);
             logContent += 'i' + i + ' tagetIndex ' + targetIndex + '\n';
             logContent += positionArr + '\n';
             if (targetIndex === -1) {
@@ -62,7 +66,7 @@ function calc(C_1, C_3, arr) {
     for (let i = 1; i <= arr.length; i++) {
         console.log(positionArr.indexOf(i) + 1);
     }
-    fs.writeFileSync('debug.log', logContent);
+    fs_1.default.writeFileSync('debug.log', logContent);
     return;
 }
 module.exports = { calc };
@@ -70,8 +74,8 @@ module.exports = { calc };
 if (require.main === module) {
     process.stdin.resume();
     process.stdin.setEncoding('utf8');
-    var lines = []; // 文字列専用の配列
-    var reader = require('readline').createInterface({
+    const lines = []; // 文字列専用の配列
+    const reader = readline_1.default.createInterface({
         input: process.stdin,
         output: process.stdout,
     });

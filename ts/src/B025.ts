@@ -1,7 +1,8 @@
-function calc(C_1: number, C_3: number, arr: number[]) {
-  const fs = require('fs')
-  const path = require('path')
+import fs from 'fs'
+import path from 'path'
+import readline from 'readline'
 
+function calc(C_1: number, C_3: number, arr: number[]) {
   let logContent = ''
   // ファイル名を取得
   const filename = path.basename(__filename)
@@ -48,8 +49,7 @@ function calc(C_1: number, C_3: number, arr: number[]) {
           break
         } else if (k >= positionArr.length && positionArr[k - positionArr.length] === null) {
           positionArr[k - positionArr.length] = i
-          logContent +=
-            'i' + i + ' k' + k + ' moved ' + targetIndex + ' to ' + (k - positionArr.length) + '\n'
+          logContent += 'i' + i + ' k' + k + ' moved ' + targetIndex + ' to ' + (k - positionArr.length) + '\n'
           positionArr[targetIndex] = null
           logContent += positionArr + '\n'
           break
@@ -86,7 +86,7 @@ if (require.main === module) {
   process.stdin.setEncoding('utf8')
 
   const lines: string[] = [] // 文字列専用の配列
-  const reader = require('readline').createInterface({
+  const reader = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
   })
