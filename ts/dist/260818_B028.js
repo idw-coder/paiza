@@ -1,0 +1,55 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const fs_1 = __importDefault(require("fs"));
+const readline_1 = __importDefault(require("readline"));
+function solve(n, g, m, gList, mList) {
+    let logContent = n + ' ' + g + ' ' + m + '\n';
+    logContent += gList.map((g) => g.join(' ')).join('\n') + '\n';
+    logContent += mList.map((m) => m.from + ' ' + m.isGroup + ' ' + m.to + ' ' + m.message).join('\n') + '\n';
+    logContent += '\n';
+    const ans = Array.from({ length: n }, () => []);
+    // メッセージリストでループ
+    for (const obj of mList) {
+        if (obj.isGroup === 0) {
+            ans[obj.from - 1]?.push(obj.message);
+            ans[obj.to - 1]?.push(obj.message);
+        }
+        else {
+            gList[obj.to - 1]?.slice(1).forEach((n) => ans[n - 1]?.push(obj.message));
+        }
+    }
+    fs_1.default.writeFileSync('debug.log', logContent);
+    console.log(ans.map((a) => a.join('\n')).join('\n--\n'));
+    return;
+}
+process.stdin.resume();
+process.stdin.setEncoding('utf8');
+const lines = []; // 文字列専用の配列
+const reader = readline_1.default.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+});
+reader.on('line', (line) => {
+    lines.push(line);
+});
+reader.on('close', () => {
+    const [n, g, m] = lines[0].split(' ').map((n) => Number(n));
+    const gList = [];
+    for (let i = 1; i <= g; i++) {
+        gList.push(lines[i].split(' ').map(Number));
+    }
+    const mList = [];
+    for (let i = g + 1; i <= m + g; i++) {
+        mList.push({
+            from: Number(lines[i].split(' ')[0]),
+            isGroup: Number(lines[i].split(' ')[1]),
+            to: Number(lines[i].split(' ')[2]),
+            message: lines[i].split(' ')[3],
+        });
+    }
+    solve(n, g, m, gList, mList);
+});
+//# sourceMappingURL=260818_B028.js.map
