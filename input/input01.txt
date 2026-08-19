@@ -1,4 +1,7 @@
-3 0 3
-1 0 2 ohayou
-2 0 3 konnichiha
-1 0 3 konbanha
+6
+3 None 5
+7 3 3
+8 7 4
+5 3 3
+12 None 8
+17 12 9
