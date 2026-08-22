@@ -9,6 +9,5 @@
   "useTabs": false,
   "bracketSpacing": true,
   "bracketSameLine": false,
-  "jsxSingleQuote": true,
-  "endOfLine": "auto"
+  "jsxSingleQuote": true
 }
