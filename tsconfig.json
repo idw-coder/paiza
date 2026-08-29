@@ -46,5 +46,7 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true
-  }
+  },
+  // include: 未指定だと **/* が scripts/ も対象にし、rootDir 外でエラーになる。提出用だけコンパイルする
+  "include": ["ts/src/**/*"]
 }

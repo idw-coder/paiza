@@ -7,6 +7,7 @@ const sourceArgument = process.argv[2]
 
 if (!sourceArgument) {
   console.error('使用方法: npm run clean-build-and-run -- <TypeScriptファイル>')
+  console.error('使用方法: npm run paiza -- <TypeScriptファイル>')
   process.exit(1)
 }
 
@@ -28,7 +29,7 @@ if (configFile.error) {
 
 const config = ts.parseJsonConfigFileContent(configFile.config, ts.sys, projectDirectory)
 const configErrors = config.errors.filter(
-  (diagnostic) => diagnostic.code !== 18003, // filesを上書きするため「入力がありません」は無視
+  (diagnostic) => diagnostic.code !== 18003 // filesを上書きするため「入力がありません」は無視
 )
 
 if (configErrors.length > 0) {
