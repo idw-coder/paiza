@@ -42,23 +42,28 @@ function solve(n, m, birds) {
         console.log('\n');
     // if (DEBUG) console.log(n + '' + m)
     // if (DEBUG) console.log(birds.map((m) => m.join(' ')).join('\n'))
-    debugMemory();
-    debugTime();
+    // debugMemory()
+    // debugTime()
     /**
      * 色がキーでその色の鳥の数を値とする
+     * birds の 1日目から作成
      */
     const birdMap = new Map();
     for (let i = 0; i < n; i++) {
         birdMap.set(birds[i][0], (birdMap.get(birds[i][0]) ?? 0) + 1);
     }
-    debugMemory();
+    // debugMemory()
     debugTime();
-    // if (DEBUG) console.log([...birdMap].map((m) => m[1]).join(' '))
+    // if (DEBUG)
+    //   console.log(
+    //     'birdMapの初期値 ' +
+    //       [...birdMap].map(([color, value]) => '[' + color + 'の色が ' + value + '匹]').join(' ')
+    //   )
     /**
      * Map<日, Map<色, 増減>>
      */
     const events = new Map(Array.from({ length: m }, (_, idx) => [idx, new Map()]));
-    debugMemory();
+    // debugMemory()
     debugTime();
     // if (DEBUG) {
     //   console.log(
@@ -68,39 +73,90 @@ function solve(n, m, birds) {
     //   )
     // }
     for (let i = 0; i < n; i++) {
-        // j日目 i色 の増減
+        // i日目 の増減
         const day = birds[i][1] - 1;
-        const removedColor = birds[i][0] - 1;
-        const addedColor = birds[i][2] - 1;
+        const removedColor = birds[i][0];
+        const addedColor = birds[i][2];
         events.get(day).set(removedColor, (events.get(day).get(removedColor) ?? 0) - 1);
         events.get(day).set(addedColor, (events.get(day).get(addedColor) ?? 0) + 1);
     }
-    debugMemory();
+    // debugMemory()
     debugTime();
-    // if (DEBUG) {
-    //   console.log(
-    //     [...events]
-    //       .map(
-    //         ([day, colors]) =>
-    //           day + ' - ' + [...colors].map(([color, value]) => '[' + color + ', ' + value + ']')
-    //       )
-    //       .join('\n')
-    //   )
-    // }
+    if (DEBUG) {
+        console.log([...events]
+            .map(([day, colors]) => day +
+            1 +
+            '日目 - ' +
+            [...colors].map(([color, value]) => '[' + color + 'の色が ' + value + '匹]'))
+            .join('\n') + '\n');
+    }
+    let numType = [...birdMap.values()].filter((value) => value > 0).length;
     /**
      * events の各日でループ
-     * その日の色の増減を birdMap に反映
-     * その日の色の種類数を console.log()
+     * その日の変化した色でループ
+     * 増減を birdMap に反映
      */
     for (let i = 0; i < m; i++) {
-        for (let j = 0; j < n; j++) {
-            birdMap.set(j + 1, birdMap.get(j + 1) + (events.get(i).get(j) ?? 0));
-            // debugMemory('80 ')
+        // if (DEBUG) console.log(i + 1 + '日目')
+        if (events.get(i).size === 0) {
+            console.log(numType);
+            continue;
         }
-        // debugMemory('82 ')
-        // console.log([...birdMap.values()].filter((value) => value > 0).length)
+        else {
+            // 増減したかをみる
+            let numChange = 0;
+            /**
+             * events の各 color で
+             * - birdsMap にその color がない場合は birdsMap のキーに新しく color を追加して numChange++
+             * - birdsMap にその color があり かつ 増の場合は birdsMap の対象 color の 値に value を追加
+             * - birdsMap にその color があり かつ 減 かつ birdsMap の 対象 color の値 - value が 0 の場合は birdsMap の対象 color の 値に value を追加して、numChange--
+             * - birdsMap にその color があり かつ 減 かつ birdsMap の 対象 color の値 - value が !0 の場合は birdsMap の対象 color の 値に value を追加
+             */
+            for (const [color, value] of events.get(i)) {
+                // birdsMap にその color がない場合は birdsMap のキーに新しく color を追加して numChange++
+                if (!birdMap.get(color)) {
+                    birdMap.set(color, 1);
+                    numChange++;
+                }
+                else if (
+                // birdsMap にその color があり かつ 増の場合は birdsMap の対象 color の 値に value を追加
+                birdMap.get(color) !== undefined &&
+                    birdMap.get(color) !== 0 &&
+                    value > 0) {
+                    birdMap.set(color, birdMap.get(color) + value);
+                }
+                else if (
+                // birdsMap にその color があり かつ 減 かつ birdsMap の 対象 color の値 - value が 0 の場合は irdsMap の対象 color の 値に value を追加して、numChange--
+                birdMap.get(color) !== undefined &&
+                    birdMap.get(color) !== 0 &&
+                    birdMap.get(color) + value === 0) {
+                    birdMap.set(color, birdMap.get(color) + value);
+                    numChange--;
+                }
+                else if (
+                // birdsMap にその color があり かつ 減 かつ birdsMap の 対象 color の値 - value が !0 の場合は birdsMap の対象 color の 値に value を追加
+                birdMap.get(color) !== undefined &&
+                    birdMap.get(color) !== 0 &&
+                    birdMap.get(color) + value !== 0) {
+                    birdMap.set(color, birdMap.get(color) + value);
+                }
+                // debugMemory()
+            }
+            // debugMemory()
+            // if (DEBUG)
+            //   console.log(
+            //     [...birdMap].map(([color, value]) => '[' + color + 'の色が ' + value + '匹]').join(' ')
+            //   )
+            if (numChange === 0)
+                console.log(numType);
+            else {
+                numType += numChange;
+                console.log(numType);
+            }
+        }
+        // debugTime()
     }
-    debugMemory();
+    // debugMemory()
     debugTime();
 }
 process.stdin.resume();
