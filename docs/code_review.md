@@ -98,6 +98,7 @@ TLE は Time Limit Exceeded の略で、実行時間制限超過の原因にも
 | cnt    | 件数           |
 | sum    | 合計           |
 | total  | 合計値         |
+| avg    | 平均           |
 | freq   | 出現回数       |
 | counts | 集計表         |
 | best   | 暫定の最良解   |
