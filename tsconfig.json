@@ -9,7 +9,7 @@
     // See also https://aka.ms/tsconfig/module
     // module: paizaの提出環境はNode.js v16のCommonJS。出力をrequire/exports形式にする
     "module": "commonjs",
-    "target": "es2020",
+    "target": "es2021",
     "types": ["node"],
     // esModuleInterop: import fs from 'fs' のようにdefault importでCommonJSモジュールを読める
     "esModuleInterop": true,
