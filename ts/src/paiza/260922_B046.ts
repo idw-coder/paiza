@@ -1,44 +1,27 @@
 import readline from 'readline'
 const DEBUG = !!process.env.DEBUG
 
-function solve(N: number, M: number, tableList: number[]) {
-  if (DEBUG) console.log('\n\n' + N + ' ' + M)
-  if (DEBUG) console.log(tableList)
-  let lestNum = M - N
-  let current = [...tableList]
+function solve(N: number, n_1: number, d_1: string, n_2: number, d_2: string) {
+  if (DEBUG) console.log('\n\n' + N)
+  if (DEBUG) console.log(n_1 + ' ' + d_1)
+  if (DEBUG) console.log(n_2 + ' ' + d_2)
+  if (DEBUG) console.log(Math.PI)
   /**
-   * 時間でループ
-   * 各時間で、
-   * 1. 各テーブルの処理時間のカウントダウンを進める
-   * 2. 各テーブルの残り処理時間を見る
-   * 処理が完了（0）
-   * - 残りのユーザー数
-   *
+   * N - S / S - N / W - E / E - W の場合 n_1 + n_2
+   * N - N / S - S / W - W / E - E の場合 Math.abs(n_1 - n_2)
+   * N - E / N - W / S - E / S - W /
+   * W - N / W - S / E - N / E - S の場合
+   * Math.abs(n_1 - n_2) + Math.min(n_1, n_2) * Math.PI / 2
    */
 
-  for (let i = 0; ; i++) {
-    const nextList = [...current]
-    // current を順番に減らす
-    const resetIdxList: number[] = []
-    for (const [idx, item] of current.entries()) {
-      if (item > 1) nextList[idx] = nextList[idx]! - 1
-      if (item === 1) {
-        resetIdxList.push(idx)
-      }
-    }
-    // nextList の各要素で 0 の要素 を元の数に戻す
-    // 複数の場合 各要素の idx の tableList の少ないものから戻す
-    for (const resetIdx of resetIdxList.sort((a, b) => tableList[a]! - tableList[b]!)) {
-      nextList[resetIdx] = tableList[resetIdx]!
-
-      lestNum--
-      if (lestNum === 0) {
-        console.log(nextList.reduce((acc, cur) => Math.max(acc, cur), 0) + i + 1)
-        return
-      }
-    }
-    current = nextList
-  }
+  const stra = new Set(['N-S', 'S-N', 'W-E', 'E-W'])
+  const same = new Set(['N-N', 'S-S', 'W-W', 'E-E'])
+  const notS = new Set(['N-W', 'N-E', 'S-W', 'S-E', 'W-N', 'W-S', 'E-N', 'E-S'])
+  if (DEBUG) console.log([d_1, d_2])
+  if (stra.has(`${d_1}-${d_2}`)) console.log((n_1 + n_2) * 100)
+  else if (same.has(`${d_1}-${d_2}`)) console.log(Math.abs(n_1 - n_2) * 100)
+  else if (notS.has(`${d_1}-${d_2}`))
+    console.log((Math.abs(n_1 - n_2) + (Math.min(n_1, n_2) * Math.PI) / 2) * 100)
 }
 
 process.stdin.resume()
@@ -54,7 +37,8 @@ reader.on('line', (line: string) => {
 })
 
 reader.on('close', () => {
-  const [N, M] = lines[0]!.split(' ').map(Number) as [number, number]
-  const t = Array.from({ length: N }, (_, i) => Number(lines[i + 1]))
-  solve(N, M, t)
+  const N = Number(lines[0]!)
+  const [n_1, n_2] = [Number(lines[1]!.split(' ')[0]), Number(lines[2]!.split(' ')[0])]
+  const [d_1, d_2] = [lines[1]!.split(' ')[1]!, lines[2]!.split(' ')[1]!]
+  solve(N, n_1, d_1, n_2, d_2)
 })
