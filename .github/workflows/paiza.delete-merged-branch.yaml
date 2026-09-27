@@ -1,0 +1,41 @@
+name: 'delete merged branch'
+
+# PRが閉じられたときに起動する。
+# 「マージして閉じた」と「マージせずに閉じた」のどちらでも起動するため、
+# マージされたかどうかは下の if で判定する。
+on:
+  pull_request:
+    types: [closed]
+
+# ブランチの削除はリポジトリへの書き込みになるため、書き込み権限を付ける。
+permissions:
+  contents: write
+
+jobs:
+  delete-merged-branch:
+    runs-on: ubuntu-24.04-arm
+    #   1. PRがマージされている（マージせずに閉じたPRは対象外）
+    #   2. マージ元ブランチ名が feature/ で始まる
+    # 「>-」はYAMLの書き方で、長い条件を複数行に分けて書くためのもの。
+    #   > : 改行をスペースに置き換えて1行として扱う
+    #   - : 末尾の改行を付けない
+    # つまり下の2行は「A && B」という1行の条件として解釈される。
+    if: >-
+      github.event.pull_request.merged == true &&
+      startsWith(github.event.pull_request.head.ref, 'feature/')
+    timeout-minutes: 10
+    steps:
+      - name: Delete merged branches
+        # run で使う値を環境変数として渡す。
+        #   GH_TOKEN: gh コマンドがGitHubに認証するためのトークン（Actionsが自動で発行）
+        #   REPO    : 対象リポジトリ（例: owner/d-irt-qdata-dev）
+        #   BRANCH  : マージ元ブランチ名（例: feature/task-title）
+        # ブランチ名を run に ${{ }} で直接埋め込まないのは、
+        # ブランチ名に細工があってもコマンドとして実行されないようにするため。
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ github.event.pull_request.head.ref }}
+        # GitHub API でブランチを削除する。
+        # DELETE repos/{リポジトリ}/git/refs/heads/{ブランチ名} = そのブランチを消すリクエスト。
+        run: gh api --method DELETE "repos/${REPO}/git/refs/heads/${BRANCH}"
